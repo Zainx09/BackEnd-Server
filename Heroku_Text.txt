@@ -1,0 +1,24 @@
+//git init into project directory
+git init
+
+//heroku install
+npm install -g heroku
+
+//login heroku
+heroku login -i
+    -->email
+    -->passord = API KEY from heroku site
+
+//Create project on heroku
+heroku create "Unique Name"
+
+
+//Deploying your app
+
+//Heroku will need a Procfile to know how to run your app.
+//This is an important step, because without a Procfile, Heroku cannot put your server online
+//type Command 
+echo "web: node index.js" > Procfile
+
+
+//Add and commit files to Git

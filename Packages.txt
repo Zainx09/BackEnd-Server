@@ -1,0 +1,37 @@
+npm init -y
+npm i bcrypt express jsonwebtoken mongoose nodemon
+
+
+Create src folder
+	--> Create index.js
+	--> routes/authRoutes.js 
+		(in this file we put all authentication logic)
+
+
+inside package.json
+ --> scripts
+	--> remove "test: ... "
+	--> add "dev":"nodemon src/index.js"
+
+now you can only run this line in cmd "npm run dev"
+otherwise you can run this line too "nodemon src/index.js
+
+
+when send json data to post route using postman then do this
+go to header tab
+add key > Content-type
+add value >application/json
+
+Body --> raw
+{
+    "email":"test1@test.com",
+    "password":"mypassword"
+}
+
+when send jwt to get route to middleware so we need to do this
+go to header tab
+add key > Authorization
+add value > Bearer + add Jwt token generate from authRoute.js
+
+
+jwt.io  #json web token for take care our sensitive info

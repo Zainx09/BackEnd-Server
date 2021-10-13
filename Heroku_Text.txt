@@ -21,4 +21,7 @@ heroku create "Unique Name"
 echo "web: node index.js" > Procfile
 
 
-//Add and commit files to Git
+//Add and commit files to Git and then push to heroku
+git add .
+git commit -m "ready to deploy"
+git push heroku master

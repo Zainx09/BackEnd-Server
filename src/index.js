@@ -15,9 +15,6 @@ app.use(bodyParser.json());
 app.use(allRoutes);
 
 
-// use the express-static middleware
-app.use(express.static("public"))
-
 
 app.get("/" , (req , res)=>{
     res.send("Home Page")

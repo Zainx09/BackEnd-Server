@@ -8,6 +8,7 @@ Create src folder
 		(in this file we put all authentication logic)
 
 
+
 inside package.json
  --> scripts
 	--> remove "test: ... "
@@ -35,3 +36,18 @@ add value > Bearer + add Jwt token generate from authRoute.js
 
 
 jwt.io  #json web token for take care our sensitive info
+
+
+//ngrok will run my express server to some address
+npm install -g ngrok
+
+--> run express server "nodemon src/index.js"
+--> run react native bundler "npm start"
+--> run ngrok server "ngrok http 3000"
+
+
+npm i actions-on-google
+npm i dialogflow-fulfillment
+
+npm install --save pusher
+

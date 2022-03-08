@@ -2,9 +2,13 @@
 require('./models/User');
 
 const express = require("express");
+
 const mongoose = require("mongoose");
+
 const bodyParser = require("body-parser");
+
 const allRoutes = require("./routes/allRoutes");
+
 const Pusher = require('pusher');
 
 const pusherConfig = require('./pusher/pusher.json'); // (1)
@@ -25,6 +29,32 @@ app.use(bodyParser.json());
 
 app.use(allRoutes);
 
+/////////////////////// WebSocket ///////////////////////////////////////
+// const http = require("http");
+
+// const WebSocket = require("ws");
+// const server = http.createServer(app);
+// const wss = new WebSocket.Server({ server });
+// wss.on("connection", function connection(ws) {
+//   ws.on("message", function incoming(message, isBinary) {
+//     console.log(message.toString(), isBinary);
+//     wss.clients.forEach(function each(client) {
+//       if (client.readyState === WebSocket.OPEN) {
+//         client.send(message.toString());
+//       }
+//     });
+//   });
+// });
+
+
+
+/////////////////////// WebSocket ///////////////////////////////////////
+
+
+
+
+////////////////////// MONGODB ////////////////////////////////////////////
+
 const mongoUri = 'mongodb+srv://Zain:Zain@cluster0.c23hs.mongodb.net/myMainDB?retryWrites=true&w=majority'
 
 mongoose.connect(mongoUri , {
@@ -38,11 +68,18 @@ mongoose.connection.on('connected' , ()=>{
 
 mongoose.connection.on('error' , (err)=>{
     console.log("Error : " , err);
+    
 });
 
+////////////////////// MONGODB ////////////////////////////////////////////
 
 
-//////////////////FOR PUSHER////////////////////////////
+
+
+
+
+///////////////////// FOR PUSHER ////////////////////////////////
+
 app.put('/users/:name', function(req, res) { // (3)
     console.log('User joined: ' + req.params.name);
     pusherClient.trigger('chat_channel', 'join', {
@@ -60,20 +97,29 @@ app.delete('/users/:name', function(req, res) { // (4)
 });
 
 app.post('/users/:name/messages', function(req, res) { // (5)
-    console.log('User ' + req.params.name + ' sent message: ' + req.body.message);
+    // console.log('User ' + req.params.name + ' sent message: ' + req.body.message);
     pusherClient.trigger('chat_channel', 'message', {
-        name: req.params.name,
+        // name: req.params.name,
         message: req.body.message
     });
     res.sendStatus(204);
 });
 
-//////////////////FOR PUSHER////////////////////////////
+///////////////////// FOR PUSHER ////////////////////////////////
+
+
+
+
 
 
 app.get('/', (req, res) => {
     res.send("Server Is Working......")
 })
+
+app.post('/' , (req,res)=>{
+    res.send("This is post req")
+})
+
 
 app.listen(3000, () => {
     console.log("Server is Running on port 3000")

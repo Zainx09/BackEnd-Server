@@ -1,5 +1,6 @@
 //jshint esversion:6
 const express = require("express");
+
 const mongoose = require("mongoose");
 
 //jwt is a special key of idenfication of the information that our server only knows
@@ -7,6 +8,7 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 const User = mongoose.model("User");
+
 const router = express.Router();
 
 
@@ -20,19 +22,17 @@ router.post("/signup" , async (req , res) =>{
 
 
   //from postman we post a requst with json object and get this object below
-  const { email , password } = req.body;
+  const { username, email , password } = req.body;
 
   
   try{
-
       
-      const user = new User({ email , password });
+      const user = new User({ username,  email , password });
 
       console.log(user);
       //wait for save operation to be done
       await user.save();
-      
-     
+    
       //create jwt of user id and secret key to save the info of identification
       const token = jwt.sign({ userId: user._id } , "My_Secret_Key");
       res.send({ token });
@@ -54,7 +54,6 @@ router.post('/signin', async (req , res)=>{
   if (!email || !password){
       return res.status(422).send({error:"Must Provide Email and Password!"})
   }
-
 
   const user = await User.findOne({ email });
 
@@ -94,27 +93,31 @@ router.post('/checkLogin', async (req , res)=>{
     //we put user from payload. So, payload contain user Id
     //check authRoute.js
     const {userId} = payload;
-    const user = await User.findById(userId , function(err, user){
+    await User.findById(userId , function(err, user){
       if (!err){
         res.send(user)
+       
       }else{
         res.send("Error In Finding user!!")
       }
-    });
+    }).clone().catch(function(err){ console.log(err); res.send('Something went Wrong!')})
   });
 
 });
 
 
 router.route("/category")
+
     .get((req, res) => {
         res.send("Get Category")
     })
+
     .post((req, res) => {
         const { email , password } = req.body;
         response = "Email="+email+"\nPassword="+password;
         res.send(response)
     })
+    
     .delete((req, res) => {
         res.send("Delete Category")
     })

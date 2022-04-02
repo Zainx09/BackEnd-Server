@@ -29,26 +29,7 @@ app.use(bodyParser.json());
 
 app.use(allRoutes);
 
-/////////////////////// WebSocket ///////////////////////////////////////
-// const http = require("http");
 
-// const WebSocket = require("ws");
-// const server = http.createServer(app);
-// const wss = new WebSocket.Server({ server });
-// wss.on("connection", function connection(ws) {
-//   ws.on("message", function incoming(message, isBinary) {
-//     console.log(message.toString(), isBinary);
-//     wss.clients.forEach(function each(client) {
-//       if (client.readyState === WebSocket.OPEN) {
-//         client.send(message.toString());
-//       }
-//     });
-//   });
-// });
-
-
-
-/////////////////////// WebSocket ///////////////////////////////////////
 
 
 
@@ -80,30 +61,30 @@ mongoose.connection.on('error' , (err)=>{
 
 ///////////////////// FOR PUSHER ////////////////////////////////
 
-app.put('/users/:name', function(req, res) { // (3)
-    console.log('User joined: ' + req.params.name);
-    pusherClient.trigger('chat_channel', 'join', {
-        name: req.params.name
-    });
-    res.sendStatus(204);
-});
+// app.put('/users/:name', function(req, res) { // (3)
+//     console.log('User joined: ' + req.params.name);
+//     pusherClient.trigger('chat_channel', 'join', {
+//         name: req.params.name
+//     });
+//     res.sendStatus(204);
+// });
 
-app.delete('/users/:name', function(req, res) { // (4)
-    console.log('User left: ' + req.params.name);
-    pusherClient.trigger('chat_channel', 'part', {
-        name: req.params.name
-    });
-    res.sendStatus(204);
-});
+// app.delete('/users/:name', function(req, res) { // (4)
+//     console.log('User left: ' + req.params.name);
+//     pusherClient.trigger('chat_channel', 'part', {
+//         name: req.params.name
+//     });
+//     res.sendStatus(204);
+// });
 
-app.post('/users/:name/messages', function(req, res) { // (5)
-    // console.log('User ' + req.params.name + ' sent message: ' + req.body.message);
-    pusherClient.trigger('chat_channel', 'message', {
-        // name: req.params.name,
-        message: req.body.message
-    });
-    res.sendStatus(204);
-});
+// app.post('/users/:name/messages', function(req, res) { // (5)
+//     // console.log('User ' + req.params.name + ' sent message: ' + req.body.message);
+//     pusherClient.trigger('chat_channel', 'message', {
+//         // name: req.params.name,
+//         message: req.body.message
+//     });
+//     res.sendStatus(204);
+// });
 
 ///////////////////// FOR PUSHER ////////////////////////////////
 
@@ -115,11 +96,6 @@ app.post('/users/:name/messages', function(req, res) { // (5)
 app.get('/', (req, res) => {
     res.send("Server Is Working......")
 })
-
-app.post('/' , (req,res)=>{
-    res.send("This is post req")
-})
-
 
 app.listen(3000, () => {
     console.log("Server is Running on port 3000")

@@ -18,18 +18,17 @@ const router = express.Router();
 
 
 //bodyparser place all info into the req object
-router.post("/signup" , async (req , res) =>{
 
+router.post("/signup" , async (req , res) =>{
 
   //from postman we post a requst with json object and get this object below
   const { username, email , password } = req.body;
 
-  
   try{
-      
       const user = new User({ username,  email , password });
 
       console.log(user);
+
       //wait for save operation to be done
       await user.save();
     
@@ -40,16 +39,14 @@ router.post("/signup" , async (req , res) =>{
   }catch(err){ 
 
       return res.status(422).send(err.message);
-      //return res.status(422).send("Hello World");
-
   }
-  
 });
 
 
 router.post('/signin', async (req , res)=>{
 
   const {email , password } = req.body;
+
 
   if (!email || !password){
       return res.status(422).send({error:"Must Provide Email and Password!"})

@@ -7,13 +7,11 @@ const userSchema = new mongoose.Schema({
         type: String,  
         required: true
     },
-
     email: {
         type: String,
         unique: true,
         required: true
     },
-
     password: {
         type: String,  
         required: true
@@ -22,6 +20,7 @@ const userSchema = new mongoose.Schema({
 
 
 //this function will run before we save the user into db
+//use for encryption password
 userSchema.pre('save' , function(next){
 
     //we cant get 'this' in arrow function. 

@@ -3,6 +3,7 @@ require('./models/User');
 
 const express = require("express");
 
+const config = require("./config/keys");
 const mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
@@ -36,7 +37,9 @@ app.use(allRoutes);
 
 ////////////////////// MONGODB ////////////////////////////////////////////
 
-const mongoUri = 'mongodb+srv://Zain:Zain@cluster0.c23hs.mongodb.net/myMainDB?retryWrites=true&w=majority'
+// const mongoUri = 'mongodb+srv://Zain:Zain@cluster0.c23hs.mongodb.net/myMainDB?retryWrites=true&w=majority' config.mongoURI
+
+const mongoUri = config.mongoURI;
 
 mongoose.connect(mongoUri , {
     useNewUrlParser: true,

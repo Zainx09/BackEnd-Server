@@ -1,5 +1,6 @@
 //jshint esversion:6
 require('./models/User');
+require('./models/CallLog');
 
 const express = require("express");
 
@@ -102,3 +103,7 @@ app.get('/', (req, res) => {
 
 app.listen(process.env.PORT || 3000, 
 	() => console.log("Server is running..."));
+
+
+//URL
+// https://fyp-express-server.herokuapp.com/

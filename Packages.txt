@@ -1,5 +1,7 @@
 npm init -y
-npm i bcrypt express jsonwebtoken mongoose nodemon
+npm i express jsonwebtoken mongoose nodemon
+
+npm install --save bcryptjs
 
 
 Create src folder

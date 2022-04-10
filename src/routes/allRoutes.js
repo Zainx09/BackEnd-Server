@@ -105,36 +105,36 @@ router.post('/checkLogin', async (req , res)=>{
 
 router.post("/callLog" , async (req , res) =>{
 
-  const { email, username, type, callJoinId, channelName } = req.body;
+  const { email, username, type, callJoinId, channelName, today } = req.body;
 
-  let today = new Date();
+  // let today = new Date();
 
-  let dd = today.getDate();
-  let mm = today.getMonth()+1; 
-  let yyyy = today.getFullYear();
+  // let dd = today.getDate();
+  // let mm = today.getMonth()+1; 
+  // let yyyy = today.getFullYear();
 
-  if(dd<10){
-    dd='0'+dd;
-  } 
+  // if(dd<10){
+  //   dd='0'+dd;
+  // } 
 
-  if(mm<10){
-      mm='0'+mm;
-  } 
+  // if(mm<10){
+  //     mm='0'+mm;
+  // } 
 
-  let hr = today.getHours();
-  let min = today.getMinutes();
+  // let hr = today.getHours();
+  // let min = today.getMinutes();
 
-  if (min < 10){
-      min = "0" + min;
-  }
+  // if (min < 10){
+  //     min = "0" + min;
+  // }
 
-  var ampm = "am";
-  if( hr > 12 ){
-      hr -= 12;
-      ampm = "pm";
-  }
+  // var ampm = "am";
+  // if( hr > 12 ){
+  //     hr -= 12;
+  //     ampm = "pm";
+  // }
 
-  today = dd+'-'+mm+'-'+yyyy+" "+hr+":"+min+""+ampm;
+  // today = dd+'-'+mm+'-'+yyyy+" "+hr+":"+min+""+ampm;
 
   try{
     if (type === "create"){

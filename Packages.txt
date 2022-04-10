@@ -53,5 +53,4 @@ npm i dialogflow-fulfillment
 
 npm install --save pusher
 
-npm i ws
 

@@ -3,6 +3,8 @@ const express = require("express");
 
 const mongoose = require("mongoose");
 
+const bcrypt = require("bcryptjs")
+
 //jwt is a special key of idenfication of the information that our server only knows
 //it can be used to prove that you are who you say you are
 const jwt = require("jsonwebtoken");
@@ -107,35 +109,6 @@ router.post("/callLog" , async (req , res) =>{
 
   const { email, username, type, callJoinId, channelName, today } = req.body;
 
-  // let today = new Date();
-
-  // let dd = today.getDate();
-  // let mm = today.getMonth()+1; 
-  // let yyyy = today.getFullYear();
-
-  // if(dd<10){
-  //   dd='0'+dd;
-  // } 
-
-  // if(mm<10){
-  //     mm='0'+mm;
-  // } 
-
-  // let hr = today.getHours();
-  // let min = today.getMinutes();
-
-  // if (min < 10){
-  //     min = "0" + min;
-  // }
-
-  // var ampm = "am";
-  // if( hr > 12 ){
-  //     hr -= 12;
-  //     ampm = "pm";
-  // }
-
-  // today = dd+'-'+mm+'-'+yyyy+" "+hr+":"+min+""+ampm;
-
   try{
     if (type === "create"){
 
@@ -158,13 +131,6 @@ router.post("/callLog" , async (req , res) =>{
       res.send(callLog);
   
     }else if(type === "join"){
-
-      // const {modifiedCount} = await CallLog.updateOne(
-      //   {CallId:callJoinId , CallStatus:'created', ChannelName:channelName}, 
-      //   {ReceiverEmail:email , ReceiverUsername:username , CallStatus:'joined' , ReceiveDate:today} 
-      //   );
-    
-      // res.send({modifiedCount});
 
       const result = await CallLog.findOneAndUpdate(
         {CallId:callJoinId , CallStatus:'created', ChannelName:channelName}, 
@@ -193,6 +159,58 @@ router.get("/callLog/:email" , async (req , res) =>{
   const email = req.params.email;
   const user = await CallLog.find({ "$or" : [ { CreatorEmail: email } , { ReceiverEmail: email }]});
   res.send(user)
+})
+
+
+
+router.post("/changePassword" , async (req , res) =>{
+
+  const {email , password} = req.body;
+  let {newPassword} = req.body;
+
+  try{
+
+    const user = await User.findOne({ email });
+
+    if (!user){
+      return res.status(422).send({error:"Invalid Password or Email!"});
+    }
+
+    await user.comparePassword(password);
+
+
+    bcrypt.genSalt(10 , (err, salt)=>{
+      if(err){
+          return next(err);
+      }
+
+      //if we successfully generate salt then hash the password and add salt in it
+      bcrypt.hash(newPassword, salt , async (err, hash)=>{
+
+        if(err){
+            return next(err);
+        }
+
+        //now replace the plain text password into hash
+        newPassword = hash;
+
+        //now continue to save our user
+        const result = await User.findOneAndUpdate(
+          {email}, 
+          {password:newPassword},
+          {returnDocument: 'after'}
+        );
+        
+       
+        res.send(result)
+        
+      })
+    });
+
+  }catch(err){
+      return res.status(422).send({error:"Something went Wrong"})
+  }
+
 })
 
 router.route("/category")

@@ -38,7 +38,7 @@ app.use(allRoutes);
 
 ////////////////////// MONGODB ////////////////////////////////////////////
 
-// const mongoUri = 'mongodb+srv://Zain:Zain@cluster0.c23hs.mongodb.net/myMainDB?retryWrites=true&w=majority' config.mongoURI
+// const mongoUri = 'mongodb+srv://Zain:Zain@cluster0.c23hs.mongodb.net/myMainDB?retryWrites=true&w=majority' 
 
 const mongoUri = config.mongoURI;
 
@@ -57,43 +57,6 @@ mongoose.connection.on('error' , (err)=>{
 });
 
 ////////////////////// MONGODB ////////////////////////////////////////////
-
-
-
-
-
-
-///////////////////// FOR PUSHER ////////////////////////////////
-
-// app.put('/users/:name', function(req, res) { // (3)
-//     console.log('User joined: ' + req.params.name);
-//     pusherClient.trigger('chat_channel', 'join', {
-//         name: req.params.name
-//     });
-//     res.sendStatus(204);
-// });
-
-// app.delete('/users/:name', function(req, res) { // (4)
-//     console.log('User left: ' + req.params.name);
-//     pusherClient.trigger('chat_channel', 'part', {
-//         name: req.params.name
-//     });
-//     res.sendStatus(204);
-// });
-
-// app.post('/users/:name/messages', function(req, res) { // (5)
-//     // console.log('User ' + req.params.name + ' sent message: ' + req.body.message);
-//     pusherClient.trigger('chat_channel', 'message', {
-//         // name: req.params.name,
-//         message: req.body.message
-//     });
-//     res.sendStatus(204);
-// });
-
-///////////////////// FOR PUSHER ////////////////////////////////
-
-
-
 
 
 

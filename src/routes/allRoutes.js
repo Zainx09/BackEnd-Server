@@ -30,9 +30,9 @@ router.post("/signup" , async (req , res) =>{
   try{
 
       const user_check = await User.findOne({ email });
-      
+
       if (user_check){
-          return res.status(422).send({error:"Invalid Password or Email!!"});
+          return res.status(422).send({error:"Email Already Exist"});
       }
 
       const user = new User({ username,  email , password });

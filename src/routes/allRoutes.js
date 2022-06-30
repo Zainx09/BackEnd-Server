@@ -28,6 +28,13 @@ router.post("/signup" , async (req , res) =>{
   const { username, email , password } = req.body;
 
   try{
+
+      const user_check = await User.findOne({ email });
+      
+      if (user_check){
+          return res.status(422).send({error:"Invalid Password or Email!!"});
+      }
+
       const user = new User({ username,  email , password });
 
       console.log(user);

@@ -53,4 +53,7 @@ npm i dialogflow-fulfillment
 
 npm install --save pusher
 
+///Email sender
+npm install nodemailer
+
 

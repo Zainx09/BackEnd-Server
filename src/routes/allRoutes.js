@@ -14,6 +14,8 @@ const CallLog = mongoose.model("CallLog");
 
 const router = express.Router();
 
+const nodemailer = require('nodemailer');
+
 
 //if we waant to test this post route and 
 //we typr url then that will be get req not post req
@@ -83,6 +85,40 @@ router.post('/signin', async (req , res)=>{
 
 });
 
+
+////For sending email
+router.post('/sendOtgEmail' , (req , res)=>{
+  const {email, code} = req.body;
+
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      type: 'OAuth2',
+      user: 'fyp.project.service@gmail.com',
+      pass: 'Zain1234',
+      clientId: '1060384411316-e5iu662hrn833e4gsvccj0v3fqdtnao3.apps.googleusercontent.com',
+      clientSecret: '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',
+      refreshToken: '1//04H_i3IaAwpCUCgYIARAAGAQSNgF-L9IrKwgGzy6Eu2u64LbBNypqza67TYWeW9hSLBt4AP9xyJ2tH4IXOrEXbXGHbGbPx789ZA'
+    }
+  });
+  
+  let mailOptions = {
+    from: 'fyp.project.service@gmail.com',
+    to: email,
+    subject: 'Verify Your Email',
+    text: 'This is your verification code '+code
+  };
+
+  transporter.sendMail(mailOptions, function(err, data) {
+    if (err) {
+      return res.status(422).send({error:"Something went wrong"})
+    } else {
+      return res.send(true);
+    }
+  });
+
+
+});
 
 
 router.post('/checkLogin', async (req , res)=>{

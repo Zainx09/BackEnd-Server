@@ -5,7 +5,7 @@ git init
 npm install -g heroku
 
 //login heroku
-heroku login -i
+heroku login
     -->email
     -->passord = API KEY from heroku site
 

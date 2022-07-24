@@ -43,9 +43,9 @@ jwt.io  #json web token for take care our sensitive info
 //ngrok will run my express server to some address
 npm install -g ngrok
 
---> run express server "nodemon src/index.js"
---> run react native bundler "npm start"
---> run ngrok server "ngrok http 3000"
+--> run express server nodemon src/index.js
+--> run react native bundler npm start
+--> run ngrok server ngrok http 3000
 
 
 npm i actions-on-google

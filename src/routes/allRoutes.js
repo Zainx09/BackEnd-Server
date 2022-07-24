@@ -80,7 +80,15 @@ router.post('/signin', async (req , res)=>{
 
 
 ////For sending email
+
+//refresh token expires in 1 hour so need to refresh it and type id below 
+// https://developers.google.com/oauthplayground
+//go to this url and update refresh token
+
 router.post('/sendOtgEmail' ,async (req , res)=>{
+
+
+
   const {email, code} = req.body;
 
   try{
@@ -98,11 +106,12 @@ router.post('/sendOtgEmail' ,async (req , res)=>{
         user: 'fyp.project.service@gmail.com',
         pass: 'Zain1234',
         clientId: '1060384411316-e5iu662hrn833e4gsvccj0v3fqdtnao3.apps.googleusercontent.com',
-        clientSecret: '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',
-        refreshToken: '1//04H_i3IaAwpCUCgYIARAAGAQSNgF-L9IrKwgGzy6Eu2u64LbBNypqza67TYWeW9hSLBt4AP9xyJ2tH4IXOrEXbXGHbGbPx789ZA'
+        clientSecret: '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',
+        refreshToken: '1//04c-lVNtNtNh-CgYIARAAGAQSNgF-L9IrUDvDqrFTt7bfKp05gFUAeRtbDz_GMdFaA4PHTsIGSgK7iU0ygopKE9yh16kRIIwa-Q'
       }
     });
-    
+
+  
     let mailOptions = {
       from: 'fyp.project.service@gmail.com',
       to: email,
@@ -112,7 +121,7 @@ router.post('/sendOtgEmail' ,async (req , res)=>{
   
     transporter.sendMail(mailOptions, function(err, data) {
       if (err) {
-        return res.status(422).send({error:"Something went wrong"})
+        return res.status(422).send({error:"Something went wrong!!"})
       } else {
         console.log('Email sent')
         res.send(true);

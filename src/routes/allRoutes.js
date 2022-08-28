@@ -107,7 +107,7 @@ router.post('/sendOtgEmail' ,async (req , res)=>{
         pass: 'Zain1234',
         clientId: '1060384411316-e5iu662hrn833e4gsvccj0v3fqdtnao3.apps.googleusercontent.com',
         clientSecret: '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',
-        refreshToken: '1//04vOI6d3mBcISCgYIARAAGAQSNgF-L9IrYo_UFiLAs12IPaCxc8HjOQETaw0siikmPx7ZTjcT9-MkEj6JCx1xJLUv6jqNcbIXpw'
+        refreshToken: '1//04ukS8zBaGxlJCgYIARAAGAQSNgF-L9IrggEGkzz_ebGUHDHltpWYj8zkhRB6p5U65cZDvWMdLadKxI8W9Ph8nRY9J2T7cf1k2w'
       }
     });
 

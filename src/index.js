@@ -58,11 +58,11 @@ mongoose.connection.on('error' , (err)=>{
 
 ////////////////////// MONGODB ////////////////////////////////////////////
 
-
-
 app.get('/', (req, res) => {
     res.send("Server Is Working......")
 })
+
+
 
 app.listen(process.env.PORT || 3000, 
 	() => console.log("Server is running..."));

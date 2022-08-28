@@ -81,7 +81,7 @@ router.post('/signin', async (req , res)=>{
 
 ////For sending email
 
-//refresh token expires in 1 hour so need to refresh it and type id below 
+//refresh token expires in some days so need to refresh it and type id below 
 // https://developers.google.com/oauthplayground
 //go to this url and update refresh token
 
@@ -107,7 +107,7 @@ router.post('/sendOtgEmail' ,async (req , res)=>{
         pass: 'Zain1234',
         clientId: '1060384411316-e5iu662hrn833e4gsvccj0v3fqdtnao3.apps.googleusercontent.com',
         clientSecret: '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',
-        refreshToken: '1//04c-lVNtNtNh-CgYIARAAGAQSNgF-L9IrUDvDqrFTt7bfKp05gFUAeRtbDz_GMdFaA4PHTsIGSgK7iU0ygopKE9yh16kRIIwa-Q'
+        refreshToken: '1//04vOI6d3mBcISCgYIARAAGAQSNgF-L9IrYo_UFiLAs12IPaCxc8HjOQETaw0siikmPx7ZTjcT9-MkEj6JCx1xJLUv6jqNcbIXpw'
       }
     });
 
@@ -195,7 +195,10 @@ router.post("/callLog" , async (req , res) =>{
 
       const result = await CallLog.findOneAndUpdate(
         {CallId:callJoinId , CallStatus:'created', ChannelName:channelName}, 
-        {ReceiverEmail:email , ReceiverUsername:username , CallStatus:'joined' , ReceiveDate:today},
+        
+        {ReceiverEmail:email , ReceiverUsername:username , 
+          CallStatus:'joined' , ReceiveDate:today},
+
         {returnDocument: 'after'}
         );
       
@@ -239,7 +242,6 @@ router.post("/changePassword" , async (req , res) =>{
 
     await user.comparePassword(password);
 
-
     bcrypt.genSalt(10 , (err, salt)=>{
       if(err){
           return next(err);
@@ -248,22 +250,19 @@ router.post("/changePassword" , async (req , res) =>{
       //if we successfully generate salt then hash the password and add salt in it
       bcrypt.hash(newPassword, salt , async (err, hash)=>{
 
-        if(err){
-            return next(err);
-        }
+      if(err){
+          return next(err);
+      }
 
-        //now replace the plain text password into hash
-        newPassword = hash;
+      //now replace the plain text password into hash
+      newPassword = hash;
 
-        //now continue to save our user
-        const result = await User.findOneAndUpdate(
-          {email}, 
-          {password:newPassword},
-          {returnDocument: 'after'}
-        );
-        
-       
-        res.send(result)
+      const result = await User.findOneAndUpdate(
+        {email}, 
+        {password:newPassword},
+        {returnDocument: 'after'}
+      );
+      res.send(result)
         
       })
     });
@@ -289,65 +288,5 @@ router.route("/category")
     .delete((req, res) => {
         res.send("Delete Category")
     })
-
-
-router.route("/category/:SubCategory")
-
-  .get((req, res) => {
-    res.send("get : "+ req.params.SubCategory)
-  })
-
-  .put((req, res) => {
-    res.send("Put : "+ req.params.SubCategory)
-  })
-
-  .patch((req, res) => {
-    res.send("Patch : "+ req.params.SubCategory)
-  })
-
-  .delete((req, res) => {
-    res.send("Delete : "+ req.params.SubCategory)
-  })
-
-
-  router.route("/category/:SubCategory/:product")
-
-  .get((req, res) => {
-    res.send("get : "+ req.params.SubCategory+" "+req.params.product)
-  })
-
-  .put((req, res) => {
-    res.send("put : "+ req.params.SubCategory+" "+req.params.product)
-  })
-
-  .patch((req, res) => {
-    res.send("patch : "+ req.params.SubCategory+" "+req.params.product)
-  })
-
-  .delete((req, res) => {
-    res.send("delete : "+ req.params.SubCategory+" "+req.params.product)
-  })
-
-
-
-
-
-router.route("/viewcart/:userId")
-
-  .get((req, res) => {
-    res.send("get viewcart : "+ req.params.userId)
-  })
-
-  .put((req, res) => {
-    res.send("put viewcart : "+ req.params.userId)
-    })
-
-  .patch((req, res) => {
-    res.send("patch viewcart : "+ req.params.userId)
-    })
-
-  .delete((req, res) => {
-    res.send("delete viewcart : "+ req.params.userId)
-  })
 
 module.exports = router;
